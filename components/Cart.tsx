@@ -2,6 +2,7 @@
 import { ShoppingCart } from 'lucide-react'
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from './ui/sheet'
 import { Separator } from './ui/separator'
+import { formatPrice } from '@/lib/utils'
 
 const Cart = () => {
 
@@ -36,7 +37,7 @@ const Cart = () => {
                 </div>
                 <div className='flex'>
                   <span className='flex-1'>Transaction fee</span>
-                  <span>1$</span>
+                  <span>{formatPrice(2)}</span>
                 </div>
               </div>
             </div>
