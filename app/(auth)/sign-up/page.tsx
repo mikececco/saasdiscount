@@ -6,8 +6,21 @@ import { cn } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { useForm } from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod'
+import { AuthCredValidator, TAuthCredValidator } from '@/lib/validators/account-credentials-validator'
 
-const page = () => {
+const Page = () => {
+
+  const { register, handleSubmit, formState: { errors } } = useForm<TAuthCredValidator>({
+    resolver: zodResolver(AuthCredValidator),
+  });
+
+  const onSubmit = ({email, password} : TAuthCredValidator) => {
+    // send data to server
+  }
+
+
   return (
     <>
       <div className='container relative flex pt-20 flex-col items-center justify-center lg:px-0'>
@@ -26,14 +39,16 @@ const page = () => {
             </Link>
           </div>
           <div className='grid gap-6'>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className='grid gap-2'>
 
                 <div className='grid gap-1 py-2'>
                   <Label htmlFor='email'>
                     Email
                   </Label>
-                  <Input className={cn({
+                  <Input
+                    {...register('email')}
+                    className={cn({
                     "focus-visible:ring-red-500": true
                   })}
                   placeholder='you@example.com'/>
@@ -42,7 +57,9 @@ const page = () => {
                   <Label htmlFor='password'>
                     Password
                   </Label>
-                  <Input className={cn({
+                  <Input
+                    {...register('password')}
+                    className={cn({
                     "focus-visible:ring-red-500": true
                   })}
                   placeholder='password'/>
@@ -58,4 +75,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
