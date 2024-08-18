@@ -10,6 +10,9 @@ export const Users: CollectionConfig = {
   fields: [
     {
       name: 'role',
+      admin: {
+        condition: ({req}) => req.user.role === 'admin'
+      },
       type: 'select',
       options: [
         {label: 'Admin', value: 'admin'},
