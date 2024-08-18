@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NavBar from "@/components/NavBar";
 import Providers from "@/components/Providers";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +23,12 @@ export default function RootLayout({
       <body className={cn("relative h-full font-sans antialiased", inter.className)}>
         <main className="relative flex flex-col min-h-screen">
           <Providers>
-            <NavBar/>
-            <div className="flex-grow flex-1">
-              {children}
-            </div>
+            <NavBar />
+            <Suspense fallback={<div>Loading...</div>}>
+              <div className="flex-grow flex-1">
+                {children}
+              </div>
+            </Suspense>
           </Providers>
         </main>
       </body>
